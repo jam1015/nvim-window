@@ -176,19 +176,19 @@ local function get_char()
   end
 
   if config.only_uppercase then
-    return fn.nr2char(char):gsub("%a", string.upper)
+    return fn.nr2char(char):upper()
   end
 
   return fn.nr2char(char)
 end
 
-local function capitalizeAllCharsAndRemoveDuplicates(strings)
+local function capitalize_all_chars_and_remove_duplicates(strings)
   local tempTable = {}
   local result = {}
 
   for _, str in ipairs(strings) do
     -- Capitalize each alphabetic character in the string
-    local capitalizedStr = str:gsub("%a", string.upper)
+    local capitalizedStr = str:upper()
 
     -- If the capitalized string hasn't been encountered yet, add it to the result
     if not tempTable[capitalizedStr] then
@@ -205,7 +205,7 @@ function M.setup(user_config)
   config = vim.tbl_extend('force', config, user_config)
 
   if config.only_uppercase then
-    config.chars = capitalizeAllCharsAndRemoveDuplicates(config.chars)
+    config.chars = capitalize_all_chars_and_remove_duplicates(config.chars)
   end
 end
 
